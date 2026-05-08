@@ -1,0 +1,39 @@
+# macOS
+.DS_Store
+._*
+
+# Node / Next.js
+node_modules/
+.next/
+.turbo/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Build artifacts
+build/
+dist/
+out/
+*.o
+*.exe
+
+# IDE
+.vscode/
+.idea/
+*.xcworkspace/xcuserdata/
+
+# Logs & temp
+*.log
+*.tmp
+.cache/
+
+# Secrets (NEVER commit)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key

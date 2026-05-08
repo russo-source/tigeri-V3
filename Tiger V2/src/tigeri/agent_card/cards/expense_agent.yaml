@@ -1,0 +1,52 @@
+agent_id: expense_agent
+name: Expense Agent
+version: 0.1.0
+priority: 2
+phase: "Phase 1 — Core MVP"
+status: "In Development"
+function: "Mobile receipt scanning, auto-categorisation, policy check, reconciliation."
+capabilities:
+  - id: scan
+    description: Scan receipt image from mobile device.
+    input_ref: "#/components/ExpenseInput"
+    output_ref: "#/components/CapturedReceipt"
+  - id: extract
+    description: Extract merchant, date, amount, tax, category.
+    input_ref: "#/components/CapturedReceipt"
+    output_ref: "#/components/ExtractedExpense"
+  - id: categorise
+    description: Auto-categorise against tenant chart of accounts.
+    input_ref: "#/components/ExtractedExpense"
+    output_ref: "#/components/CategorisedExpense"
+  - id: policy_check
+    description: Apply expense policy check (limits, restricted categories).
+    input_ref: "#/components/CategorisedExpense"
+    output_ref: "#/components/PolicyCheckResult"
+  - id: reconcile
+    description: Reconcile against corporate card transaction feed.
+    input_ref: "#/components/PolicyCheckResult"
+    output_ref: "#/components/ReconciliationResult"
+  - id: submit
+    description: Submit reconciled expense for reimbursement or close-out.
+    input_ref: "#/components/ReconciliationResult"
+    output_ref: "#/components/ExpenseOutput"
+input_schema_ref: "tigeri.agents.expense.schemas.ExpenseInput"
+output_schema_ref: "tigeri.agents.expense.schemas.ExpenseOutput"
+default_trust_tier: ACTOR_GATED
+required_integrations:
+  - category: "OCR service"
+    access_pattern: API
+  - category: "corporate card transaction feed"
+    access_pattern: API
+  - category: "general ledger / accounting system"
+    access_pattern: API
+  - category: "mobile push notification provider"
+    access_pattern: API
+delivery_surfaces:
+  - web
+  - mobile
+sla_ms:
+  p50: 1200
+  p95: 3000
+  p99: 6000
+roi_baseline: "$35K–50K per yr (50-person firm)"

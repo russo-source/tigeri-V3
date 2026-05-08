@@ -1,0 +1,30 @@
+ADMIN_CONFIG = {
+    "confidence_threshold": 0.65,
+    "valid_actions": [
+        "file_document",
+        "find_document",
+        "send_communication",
+        "track_permit",
+        "schedule_meeting",
+        "add_attendee",
+        "upload_document",
+        "read_document",
+        "list_documents",
+        "list_meetings",
+        "meeting_reminder",
+        "move_document",
+        "delete_document",
+        "rename_document",
+        "copy_document",
+        "delete_folder",
+        "rename_folder",
+        "share_document",
+        "get_document_info",
+    ],
+    "alert_days": [30, 60, 90],
+    "default_storage": "google_drive",
+    "document_types": [
+        "import_permit", "export_permit", "business_license",
+        "tax_certificate", "insurance", "contract", "other"
+    ],
+}

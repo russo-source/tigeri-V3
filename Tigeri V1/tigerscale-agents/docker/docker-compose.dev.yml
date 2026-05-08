@@ -1,0 +1,170 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: ts_postgres
+    env_file:
+      - ../.env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tigerscale
+      POSTGRES_MAX_CONNECTIONS: 300
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 4G
+
+  redis:
+    image: redis:7-alpine
+    container_name: ts_redis
+    command: redis-server --maxmemory 2gb --maxmemory-policy allkeys-lru --save "3600 1" --save "300 100" --tcp-backlog 512 --hz 20
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+
+  api:
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: ts_api
+    command: gunicorn webhooks.main:app -w 8 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 --timeout 120 --keep-alive 5 --max-requests 2000 --max-requests-jitter 200 --backlog 2048
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../.env
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+
+  celery_worker_high:
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: ts_celery_high
+    command: celery -A core.worker worker --loglevel=info --concurrency=16 -Q high --max-tasks-per-child=500 -n worker_high@%h
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+
+  celery_worker_normal:
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: ts_celery_normal
+    command: celery -A core.worker worker --loglevel=info --concurrency=8 -Q normal,low --max-tasks-per-child=500 -n worker_normal@%h
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+
+  celery_worker_dlq:
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: ts_celery_dlq
+    command: celery -A core.worker worker --loglevel=info --concurrency=4 -Q dead_letter --max-tasks-per-child=200 -n worker_dlq@%h
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+
+  celery_beat:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: ts_beat
+    command: celery -A core.worker beat --loglevel=info --scheduler celery.beat:PersistentScheduler
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+
+volumes:
+  postgres_data:
+  redis_data:

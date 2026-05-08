@@ -1,0 +1,7 @@
+/* IBM Plex Sans (body) + IBM Plex Mono (labels, data, trace ids).
+ * Loaded via <link rel="stylesheet"> in app/layout.tsx <head> rather than @import here,
+ * because Tailwind v4's globals.css generates rules before any nested @import would resolve,
+ * which violates the CSS spec rule that @import must precede all other rules.
+ *
+ * This file is kept as the canonical pointer to where the brand spec's typography is defined.
+ */

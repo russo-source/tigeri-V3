@@ -1,0 +1,25 @@
+EXPENSE_CONFIG: dict = {
+    "confidence_threshold": 0.7,
+    "required_fields": ["vendor", "amount", "category"],
+    "default_currency": "USD",
+    "valid_categories": ["supplier", "logistics", "staff", "ops", "travel", "marketing"],
+    "valid_actions": ["capture", "approve", "reject", "track", "list_expenses", "summary", "edit", "delete"],
+    "auto_approve_all": True,
+    "xero_account_code": "429",
+    "category_account_map": {
+        "supplier":  {"xero": "310", "quickbooks": "5000"},
+        "logistics": {"xero": "429", "quickbooks": "5100"},
+        "staff":     {"xero": "477", "quickbooks": "5200"},
+        "ops":       {"xero": "429", "quickbooks": "5300"},
+        "travel":    {"xero": "493", "quickbooks": "5400"},
+        "marketing": {"xero": "429", "quickbooks": "5500"},
+    },
+    "monthly_budget_caps": {
+        "supplier":  50000,
+        "logistics": 20000,
+        "staff":     100000,
+        "ops":       15000,
+        "travel":    25000,
+        "marketing": 30000,
+    },
+}

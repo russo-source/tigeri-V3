@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package tigeri.a2a;
+
+message TigeriA2AEnvelope {
+  string trace_id = 1;
+  string tenant_id = 2;
+  string sender_agent_id = 3;
+  string recipient_agent_id = 4;
+  bytes payload = 5;
+  string classification = 6;
+  string timestamp_utc = 7;
+  string nonce = 8;
+  string hmac_sha256_sig = 9;
+}

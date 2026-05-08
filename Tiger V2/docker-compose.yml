@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: tigeri-postgres
+    environment:
+      POSTGRES_USER: tigeri
+      POSTGRES_PASSWORD: tigeri_local
+      POSTGRES_DB: tigeri
+    ports:
+      - "5432:5432"
+    volumes:
+      - tigeri_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tigeri -d tigeri"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  tigeri_pgdata:

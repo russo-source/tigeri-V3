@@ -1,0 +1,52 @@
+agent_id: invoice_agent
+name: Invoice Agent
+version: 0.1.0
+priority: 1
+phase: "Phase 1 — Core MVP"
+status: "In Development"
+function: "Captures, validates, routes and posts invoices. Eliminates AP data entry."
+capabilities:
+  - id: capture
+    description: Capture inbound invoice document via inbox or upload.
+    input_ref: "#/components/InvoiceCaptureInput"
+    output_ref: "#/components/InvoiceDocumentRef"
+  - id: extract
+    description: Extract structured fields (vendor, amount, tax, line items, due date).
+    input_ref: "#/components/InvoiceDocumentRef"
+    output_ref: "#/components/ExtractedInvoice"
+  - id: validate
+    description: Validate against tenant policy (PO match, duplicate check, currency).
+    input_ref: "#/components/ExtractedInvoice"
+    output_ref: "#/components/ValidationResult"
+  - id: route
+    description: Route to approver per tenant approval matrix.
+    input_ref: "#/components/ValidationResult"
+    output_ref: "#/components/RoutingDecision"
+  - id: post
+    description: Post approved invoice to general ledger.
+    input_ref: "#/components/RoutingDecision"
+    output_ref: "#/components/PostingResult"
+  - id: emit_event
+    description: Emit posted-invoice event for downstream consumers.
+    input_ref: "#/components/PostingResult"
+    output_ref: "#/components/EventReceipt"
+input_schema_ref: "tigeri.agents.invoice.schemas.InvoiceInput"
+output_schema_ref: "tigeri.agents.invoice.schemas.InvoiceOutput"
+default_trust_tier: ACTOR_GATED
+required_integrations:
+  - category: "general ledger / accounting system"
+    access_pattern: API
+  - category: "email / inbox provider"
+    access_pattern: API
+  - category: "OCR service"
+    access_pattern: API
+  - category: "document storage"
+    access_pattern: API
+delivery_surfaces:
+  - web
+  - mobile
+sla_ms:
+  p50: 800
+  p95: 2500
+  p99: 5000
+roi_baseline: "$8K–12K per yr per finance FTE"

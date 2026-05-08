@@ -1,0 +1,34 @@
+client_id: tigerscale
+name: TigerScale
+
+accounting_system: xero
+storage: onedrive
+calendar: outlook
+email: outlook
+
+active_agents:
+  - a01_invoice
+  - a02_expense
+  - a03_admin
+  - a04_payment
+
+channels:
+  - whatsapp
+  - telegram
+  - email
+
+expense_categories:
+  - supplier
+  - logistics
+  - staff
+  - ops
+
+whatsapp_provider: 360dialog
+
+folder_structure:
+  root: TigerScale
+  invoices: TigerScale/Invoices
+  expenses: TigerScale/Expenses
+  permits: TigerScale/Permits
+  contracts: TigerScale/Contracts
+  clients: TigerScale/Clients

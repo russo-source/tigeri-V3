@@ -1,0 +1,339 @@
+/* Global tag palette: update colors here for all dashboard status/type chips */
+:root {
+  --tag-approved-bg: #35be94;
+  --tag-approved-text: #000000;
+  --tag-approved-border: #35be94;
+
+  --tag-pending-bg: #cda94e99;
+  --tag-pending-text: #000000;
+  --tag-pending-border: #cda94e99;
+
+  --tag-rejected-bg: #f9494980;
+  --tag-rejected-text: #000000;
+  --tag-rejected-border: #f9494980;
+
+  --tag-success-bg: #ffffff00;
+  --tag-success-text: #35be94;
+  --tag-success-border: #35be94;
+
+  --tag-info-bg: #ffffff00;
+  --tag-info-text: #5a9cf0;
+  --tag-info-border: #5a9cf080;
+
+  --tag-warning-bg: #ffffff00;
+  --tag-warning-text: #a68227;
+  --tag-warning-border: #cda94e99;
+
+  --tag-error-bg: #ffffff00;
+  --tag-error-text: #ea3b3b;
+  --tag-error-border: #f9494980;
+
+  --tag-active-bg: #35be94;
+  --tag-active-text: #000000;
+  --tag-active-border: #35be94;
+
+  --tag-paused-bg: #0000001a;
+  --tag-paused-text: #000000;
+  --tag-paused-border: #0000001a;
+
+  --tag-suspended-bg: #ffffff00;
+  --tag-suspended-text: #ea3b3b;
+  --tag-suspended-border: #f9494980;
+
+  --tag-connected-bg: #ffffff00;
+  --tag-connected-text: #000000;
+  --tag-connected-border: #35be94;
+
+  --tag-disconnected-bg: #ffffff00;
+  --tag-disconnected-text: #000000;
+  --tag-disconnected-border: #f9494980;
+
+  --tag-available-bg: #ffffff00;
+  --tag-available-text: #000000;
+  --tag-available-border: #35be94;
+
+  --tag-requested-bg: #ffffff00;
+  --tag-requested-text: #000000;
+  --tag-requested-border: #cda94e99;
+
+  --tag-acquired-bg: #0000001a;
+  --tag-acquired-text: #000000;
+  --tag-acquired-border: #0000001a;
+
+  --tag-paid-bg: #35be94e5;
+  --tag-paid-text: #000000;
+  --tag-paid-border: #35be94e5;
+
+  --tag-unpaid-bg: #ffffff00;
+  --tag-unpaid-text: #000000;
+  --tag-unpaid-border: #cda94e99;
+
+  --tag-type-1-bg: #ffffff00;
+  --tag-type-1-text: #000000;
+  --tag-type-1-border: #0000003d;
+
+  --tag-type-2-bg: #ffffff00;
+  --tag-type-2-text: #000000;
+  --tag-type-2-border: #0000003d;
+
+  --tag-type-3-bg: #ffffff00;
+  --tag-type-3-text: #000000;
+  --tag-type-3-border: #0000003d;
+
+  --tag-type-4-bg: #ffffff00;
+  --tag-type-4-text: #000000;
+  --tag-type-4-border: #0000003d;
+
+  --ui-border-danger: #f9494980;
+  --ui-border-input: #d4d4d8;
+}
+
+html.dark,
+html[data-theme="dark"] {
+  --tag-approved-bg: #ffffff00;
+  --tag-approved-text: #ffffff;
+  --tag-approved-border: #2c6e5a;
+
+  --tag-pending-bg: #ffffff00;
+  --tag-pending-text: #ffffff;
+  --tag-pending-border: #ffcf5780;
+
+  --tag-rejected-bg: #ffffff00;
+  --tag-rejected-text: #ff5e5e;
+  --tag-rejected-border: #ff5e5e80;
+
+  --tag-success-bg: #ffffff1f;
+  --tag-success-text: #3fdfae;
+  --tag-success-border: #ffffff1f;
+
+  --tag-info-bg: #ffffff1f;
+  --tag-info-text: #69abff;
+  --tag-info-border: #ffffff1f;
+
+  --tag-warning-bg: #ffffff1f;
+  --tag-warning-text: #ffcf57;
+  --tag-warning-border: #ffffff1f;
+
+  --tag-error-bg: #ffffff1f;
+  --tag-error-text: #ff5757;
+  --tag-error-border: #ffffff1f;
+
+  --tag-active-bg: #2c6e5a;
+  --tag-active-text: #ffffff;
+  --tag-active-border: #2c6e5a;
+
+  --tag-paused-bg: #ffffff1a;
+  --tag-paused-text: #ffffff;
+  --tag-paused-border: #ffffff1a;
+
+  --tag-suspended-bg: #ffffff00;
+  --tag-suspended-text: #ff5e5e;
+  --tag-suspended-border: #f9494980;
+
+  --tag-connected-bg: #ffffff00;
+  --tag-connected-text: #ffffff;
+  --tag-connected-border: #2c6e5a;
+
+  --tag-disconnected-bg: #ffffff00;
+  --tag-disconnected-text: #ffffff;
+  --tag-disconnected-border: #ff5e5e80;
+
+  --tag-available-bg: #ffffff00;
+  --tag-available-text: #ffffff;
+  --tag-available-border: #2c6e5a;
+
+  --tag-requested-bg: #ffffff00;
+  --tag-requested-text: #ffffff;
+  --tag-requested-border: #ffcf5780;
+
+  --tag-acquired-bg: #ffffff1a;
+  --tag-acquired-text: #ffffff;
+  --tag-acquired-border: #ffffff1a;
+
+  --tag-paid-bg: #2c6e5a;
+  --tag-paid-text: #ffffff;
+  --tag-paid-border: #2c6e5a;
+
+  --tag-unpaid-bg: #ffffff00;
+  --tag-unpaid-text: #ffffff;
+  --tag-unpaid-border: #ffcf5780;
+
+  --tag-type-1-bg: #ffffff00;
+  --tag-type-1-text: #ffffff;
+  --tag-type-1-border: #ffffff3d;
+
+  --tag-type-2-bg: #ffffff00;
+  --tag-type-2-text: #ffffff;
+  --tag-type-2-border: #ffffff3d;
+
+  --tag-type-3-bg: #ffffff00;
+  --tag-type-3-text: #ffffff;
+  --tag-type-3-border: #ffffff3d;
+
+  --tag-type-4-bg: #ffffff00;
+  --tag-type-4-text: #ffffff;
+  --tag-type-4-border: #ffffff3d;
+
+  --ui-border-danger: #f9494980;
+  --ui-border-input: #d4d4d8;
+}
+
+.border-ui-danger {
+  border-color: var(--ui-border-danger);
+}
+
+.border-ui-input {
+  border-color: var(--ui-border-input);
+}
+
+.tag-approved,
+.tag-pending,
+.tag-rejected,
+.tag-success,
+.tag-info,
+.tag-warning,
+.tag-error,
+.tag-active,
+.tag-paused,
+.tag-suspended,
+.tag-connected,
+.tag-disconnected,
+.tag-available,
+.tag-requested,
+.tag-acquired,
+.tag-paid,
+.tag-unpaid,
+.tag-type-1,
+.tag-type-2,
+.tag-type-3,
+.tag-type-4 {
+  border-width: 2px;
+  border-style: solid;
+  background-clip: padding-box;
+}
+
+.tag-approved {
+  background-color: var(--tag-approved-bg);
+  color: var(--tag-approved-text);
+  border-color: var(--tag-approved-border);
+}
+
+.tag-pending {
+  background-color: var(--tag-pending-bg);
+  color: var(--tag-pending-text);
+  border-color: var(--tag-pending-border);
+}
+
+.tag-rejected {
+  background-color: var(--tag-rejected-bg);
+  color: var(--tag-rejected-text);
+  border-color: var(--tag-rejected-border);
+}
+
+.tag-success {
+  background-color: var(--tag-success-bg);
+  color: var(--tag-success-text);
+  border-color: var(--tag-success-border);
+}
+
+.tag-info {
+  background-color: var(--tag-info-bg);
+  color: var(--tag-info-text);
+  border-color: var(--tag-info-border);
+}
+
+.tag-warning {
+  background-color: var(--tag-warning-bg);
+  color: var(--tag-warning-text);
+  border-color: var(--tag-warning-border);
+}
+
+.tag-error {
+  background-color: var(--tag-error-bg);
+  color: var(--tag-error-text);
+  border-color: var(--tag-error-border);
+}
+
+.tag-active {
+  background-color: var(--tag-active-bg);
+  color: var(--tag-active-text);
+  border-color: var(--tag-active-border);
+}
+
+.tag-paused {
+  background-color: var(--tag-paused-bg);
+  color: var(--tag-paused-text);
+  border-color: var(--tag-paused-border);
+}
+
+.tag-suspended {
+  background-color: var(--tag-suspended-bg);
+  color: var(--tag-suspended-text);
+  border-color: var(--tag-suspended-border);
+}
+
+.tag-connected {
+  background-color: var(--tag-connected-bg);
+  color: var(--tag-connected-text);
+  border-color: var(--tag-connected-border);
+}
+
+.tag-disconnected {
+  background-color: var(--tag-disconnected-bg);
+  color: var(--tag-disconnected-text);
+  border-color: var(--tag-disconnected-border);
+}
+
+.tag-available {
+  background-color: var(--tag-available-bg);
+  color: var(--tag-available-text);
+  border-color: var(--tag-available-border);
+}
+
+.tag-requested {
+  background-color: var(--tag-requested-bg);
+  color: var(--tag-requested-text);
+  border-color: var(--tag-requested-border);
+}
+
+.tag-acquired {
+  background-color: var(--tag-acquired-bg);
+  color: var(--tag-acquired-text);
+  border-color: var(--tag-acquired-border);
+}
+
+.tag-paid {
+  background-color: var(--tag-paid-bg);
+  color: var(--tag-paid-text);
+  border-color: var(--tag-paid-border);
+}
+
+.tag-unpaid {
+  background-color: var(--tag-unpaid-bg);
+  color: var(--tag-unpaid-text);
+  border-color: var(--tag-unpaid-border);
+}
+
+.tag-type-1 {
+  background-color: var(--tag-type-1-bg);
+  color: var(--tag-type-1-text);
+  border-color: var(--tag-type-1-border);
+}
+
+.tag-type-2 {
+  background-color: var(--tag-type-2-bg);
+  color: var(--tag-type-2-text);
+  border-color: var(--tag-type-2-border);
+}
+
+.tag-type-3 {
+  background-color: var(--tag-type-3-bg);
+  color: var(--tag-type-3-text);
+  border-color: var(--tag-type-3-border);
+}
+
+.tag-type-4 {
+  background-color: var(--tag-type-4-bg);
+  color: var(--tag-type-4-text);
+  border-color: var(--tag-type-4-border);
+}

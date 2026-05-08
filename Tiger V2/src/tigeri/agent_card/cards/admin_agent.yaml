@@ -1,0 +1,51 @@
+agent_id: admin_agent
+name: Admin Agent
+version: 0.1.0
+priority: 3
+phase: "Phase 1 — Core MVP"
+status: "In Development"
+function: "Forms, workflows, onboarding/offboarding, compliance docs, communications."
+capabilities:
+  - id: render_form
+    description: Render and route digital forms.
+    input_ref: "#/components/AdminInput"
+    output_ref: "#/components/RenderedForm"
+  - id: transition_state
+    description: Drive multi-step workflow state.
+    input_ref: "#/components/RenderedForm"
+    output_ref: "#/components/WorkflowState"
+  - id: onboard
+    description: Execute employee/contractor onboarding checklists.
+    input_ref: "#/components/WorkflowState"
+    output_ref: "#/components/ChecklistResult"
+  - id: offboard
+    description: Execute offboarding checklists with access revocation triggers.
+    input_ref: "#/components/WorkflowState"
+    output_ref: "#/components/ChecklistResult"
+  - id: generate_doc
+    description: Generate compliance documents from templates.
+    input_ref: "#/components/WorkflowState"
+    output_ref: "#/components/DocumentRef"
+  - id: send_comm
+    description: Dispatch outbound communications to involved parties.
+    input_ref: "#/components/WorkflowState"
+    output_ref: "#/components/CommunicationReceipt"
+input_schema_ref: "tigeri.agents.admin.schemas.AdminInput"
+output_schema_ref: "tigeri.agents.admin.schemas.AdminOutput"
+default_trust_tier: ACTOR_GATED
+required_integrations:
+  - category: "HRIS"
+    access_pattern: API
+  - category: "document storage"
+    access_pattern: API
+  - category: "email / messaging platform"
+    access_pattern: API
+  - category: "identity provider"
+    access_pattern: API
+delivery_surfaces:
+  - web
+sla_ms:
+  p50: 400
+  p95: 1500
+  p99: 3000
+roi_baseline: "0.5–1 FTE = $30K–60K per yr"

@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import "./styles/font.css";
+@import "./styles/theme.css";
+@import "./styles/base.css";
+@import "./styles/tags.css";
+
+/* Tigeri chat panel — the one Apple-ism kept from the spec audit:
+ * a single layer of subtle backdrop blur on the chat panel and dropdown menus.
+ * No gradients, radii capped at 4px, 1px borders, shadow blur ≤ 3px (per spec 9.1).
+ */
+.tigeri-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.tigeri-glass-card {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid var(--border);
+}

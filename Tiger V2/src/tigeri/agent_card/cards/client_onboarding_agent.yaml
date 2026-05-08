@@ -1,0 +1,51 @@
+agent_id: client_onboarding_agent
+name: Client Onboarding Agent
+version: 0.1.0
+priority: 8
+phase: "Phase 1 — Core MVP"
+status: "In Development"
+function: "Post-signature provisioning, KYC/KYB, project plan, kickoff."
+capabilities:
+  - id: provision
+    description: Provision tenant resources post-signature.
+    input_ref: "#/components/COInput"
+    output_ref: "#/components/ProvisioningRecord"
+  - id: kyc
+    description: Run KYC checks.
+    input_ref: "#/components/COInput"
+    output_ref: "#/components/KYCResult"
+  - id: kyb
+    description: Run KYB checks.
+    input_ref: "#/components/COInput"
+    output_ref: "#/components/KYBResult"
+  - id: generate_plan
+    description: Generate initial project plan from template.
+    input_ref: "#/components/ProvisioningRecord"
+    output_ref: "#/components/ProjectPlan"
+  - id: schedule_kickoff
+    description: Schedule kickoff meeting.
+    input_ref: "#/components/ProjectPlan"
+    output_ref: "#/components/MeetingRecord"
+  - id: handoff
+    description: Hand off to Admin Agent on KYC completion.
+    input_ref: "#/components/MeetingRecord"
+    output_ref: "#/components/HandoffReceipt"
+input_schema_ref: "tigeri.agents.client_onboarding.schemas.COInput"
+output_schema_ref: "tigeri.agents.client_onboarding.schemas.COOutput"
+default_trust_tier: ACTOR_GATED
+required_integrations:
+  - category: "KYC / KYB provider"
+    access_pattern: API
+  - category: "CRM"
+    access_pattern: API
+  - category: "calendar provider"
+    access_pattern: API
+  - category: "document storage"
+    access_pattern: API
+delivery_surfaces:
+  - web
+sla_ms:
+  p50: 800
+  p95: 2500
+  p99: 5000
+roi_baseline: "2 weeks → 2 days"

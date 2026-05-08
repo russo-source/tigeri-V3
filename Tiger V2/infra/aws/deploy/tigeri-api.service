@@ -1,0 +1,16 @@
+[Unit]
+Description=Tigeri API
+After=network.target
+
+[Service]
+Type=simple
+User=tigeri
+Group=tigeri
+WorkingDirectory=/opt/tigeri
+EnvironmentFile=/etc/tigeri/tigeri.env
+ExecStart=/opt/tigeri/.venv/bin/uvicorn tigeri.api.app:create_app --factory --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

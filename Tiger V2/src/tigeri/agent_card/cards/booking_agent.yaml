@@ -1,0 +1,52 @@
+agent_id: booking_agent
+name: Booking Agent
+version: 0.1.0
+priority: 5
+phase: "Phase 1 — Core MVP"
+status: "In Development"
+function: "Reservations, inspections, class scheduling, meetings, venue management."
+capabilities:
+  - id: accept_request
+    description: Accept reservation, inspection, class, or meeting request.
+    input_ref: "#/components/BookingInput"
+    output_ref: "#/components/BookingRequest"
+  - id: resolve_availability
+    description: Resolve resource availability across venues and people.
+    input_ref: "#/components/BookingRequest"
+    output_ref: "#/components/AvailabilityResult"
+  - id: confirm
+    description: Confirm and write booking record.
+    input_ref: "#/components/AvailabilityResult"
+    output_ref: "#/components/BookingRecord"
+  - id: notify
+    description: Notify participants and venue contacts.
+    input_ref: "#/components/BookingRecord"
+    output_ref: "#/components/NotificationReceipt"
+  - id: reschedule_or_cancel
+    description: Manage rescheduling and cancellation.
+    input_ref: "#/components/BookingRecord"
+    output_ref: "#/components/BookingRecord"
+  - id: surface_utilisation
+    description: Surface utilisation views per venue.
+    input_ref: "#/components/BookingRecord"
+    output_ref: "#/components/UtilisationView"
+input_schema_ref: "tigeri.agents.booking.schemas.BookingInput"
+output_schema_ref: "tigeri.agents.booking.schemas.BookingOutput"
+default_trust_tier: ACTOR_GATED
+required_integrations:
+  - category: "calendar provider"
+    access_pattern: API
+  - category: "venue management system"
+    access_pattern: API
+  - category: "messaging platform"
+    access_pattern: API
+  - category: "CRM"
+    access_pattern: API
+delivery_surfaces:
+  - web
+  - mobile
+sla_ms:
+  p50: 500
+  p95: 1500
+  p99: 3000
+roi_baseline: "$15K–30K per yr per executive"

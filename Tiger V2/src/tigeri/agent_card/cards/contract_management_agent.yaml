@@ -1,0 +1,51 @@
+agent_id: contract_management_agent
+name: Contract Management Agent
+version: 0.1.0
+priority: 7
+phase: "Phase 1 — Core MVP"
+status: "In Development"
+function: "Tracks contract lifecycle, extracts terms, renewal alerts."
+capabilities:
+  - id: ingest
+    description: Ingest contract document.
+    input_ref: "#/components/ContractInput"
+    output_ref: "#/components/CapturedContract"
+  - id: extract_terms
+    description: Extract structured terms (parties, value, dates, obligations).
+    input_ref: "#/components/CapturedContract"
+    output_ref: "#/components/ExtractedTerms"
+  - id: track
+    description: Track contract through lifecycle states.
+    input_ref: "#/components/ExtractedTerms"
+    output_ref: "#/components/LifecycleState"
+  - id: schedule_alerts
+    description: Schedule renewal alerts.
+    input_ref: "#/components/LifecycleState"
+    output_ref: "#/components/AlertList"
+  - id: surface_obligations
+    description: Surface obligations near deadlines.
+    input_ref: "#/components/LifecycleState"
+    output_ref: "#/components/ObligationList"
+  - id: render_register
+    description: Produce contract register view.
+    input_ref: "#/components/LifecycleState"
+    output_ref: "#/components/RegisterEntry"
+input_schema_ref: "tigeri.agents.contract_management.schemas.ContractInput"
+output_schema_ref: "tigeri.agents.contract_management.schemas.ContractOutput"
+default_trust_tier: RECOMMENDER
+required_integrations:
+  - category: "document storage"
+    access_pattern: API
+  - category: "OCR / document understanding service"
+    access_pattern: API
+  - category: "calendar provider"
+    access_pattern: API
+  - category: "messaging platform"
+    access_pattern: API
+delivery_surfaces:
+  - web
+sla_ms:
+  p50: 1000
+  p95: 3000
+  p99: 6000
+roi_baseline: "$50K–200K per yr recovered"

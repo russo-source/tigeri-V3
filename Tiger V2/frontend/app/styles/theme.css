@@ -1,0 +1,178 @@
+/* Theme tokens for Tigeri.
+ * Spec: navy #040273 + IBM Plex Sans/Mono, 1px borders, max 4px radii, no gradients.
+ * The one Apple-ism we keep is a translucent backdrop-blur panel for the chat / dropdowns —
+ * exposed via --glass-bg / --glass-border so it tracks light/dark.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+/* Brand palette: literal values, identical in both themes.
+ * Declaring inside @theme generates Tailwind utilities (bg-navy, text-navy, border-navy, …).
+ */
+@theme {
+  --color-navy: #040273;
+  --color-navy-dark: #030252;
+  --color-navy-darker: #020141;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+:root {
+  /* Light-mode (default per spec) */
+  --background: #ffffff;
+  --foreground: #111827;
+
+  --surface: #f8f9fa;
+  --surface-elevated: #ffffff;
+  --surface-blue: #f0f4f8;
+
+  --border: #e5e7eb;
+  --border-5: rgba(17, 24, 39, 0.05);
+  --border-10: rgba(17, 24, 39, 0.10);
+
+  --background-5: rgba(17, 24, 39, 0.04);
+  --background-blue: #040273;
+  --background-dashboard: #f8f9fa;
+
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+
+  --text-success: #059669;
+  --text-warning: #d97706;
+  --text-danger: #dc2626;
+  --text-info: #0284c7;
+
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --info: #0284c7;
+
+  --date-icon-filter: none;
+  --date-icon-opacity: 0.9;
+
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(229, 231, 235, 0.85);
+  --glass-card-bg: rgba(255, 255, 255, 0.85);
+}
+
+@theme inline {
+  --font-sans:
+    "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", Menlo, Monaco, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-blue: var(--surface-blue);
+
+  --color-border: var(--border);
+  --color-border-5: var(--border-5);
+  --color-border-10: var(--border-10);
+
+  --color-background-5: var(--background-5);
+  --color-background-blue: var(--background-blue);
+  --color-background-dashboard: var(--background-dashboard);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-text-danger: var(--text-danger);
+  --color-text-success: var(--text-success);
+  --color-text-warning: var(--text-warning);
+  --color-text-info: var(--text-info);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+}
+
+/* Dark mode (explicit toggle).
+ * Spec is light-only; these values keep the rules — 1px borders, 4px radii, no gradients —
+ * with navy as the persistent accent and near-black surfaces.
+ */
+html.dark,
+html[data-theme="dark"] {
+  --background: #0a0a0c;
+  --foreground: #ffffff;
+
+  --surface: #131317;
+  --surface-elevated: #1a1a20;
+  --surface-blue: #14141f;
+
+  --border: rgba(255, 255, 255, 0.10);
+  --border-5: rgba(255, 255, 255, 0.06);
+  --border-10: rgba(255, 255, 255, 0.12);
+
+  --background-5: rgba(255, 255, 255, 0.06);
+  --background-blue: #040273;
+  --background-dashboard: #08080a;
+
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+
+  --text-success: #10b981;
+  --text-warning: #f59e0b;
+  --text-danger: #f87171;
+  --text-info: #38bdf8;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #38bdf8;
+
+  --date-icon-filter: invert(1) brightness(1.1);
+  --date-icon-opacity: 0.95;
+
+  --glass-bg: rgba(19, 19, 23, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-card-bg: rgba(26, 26, 32, 0.78);
+}
+
+/* prefers-color-scheme fallback when no explicit theme was chosen */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-theme="light"]) {
+    --background: #0a0a0c;
+    --foreground: #ffffff;
+
+    --surface: #131317;
+    --surface-elevated: #1a1a20;
+    --surface-blue: #14141f;
+
+    --border: rgba(255, 255, 255, 0.10);
+    --border-5: rgba(255, 255, 255, 0.06);
+    --border-10: rgba(255, 255, 255, 0.12);
+
+    --background-5: rgba(255, 255, 255, 0.06);
+    --background-blue: #040273;
+    --background-dashboard: #08080a;
+
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+
+    --text-success: #10b981;
+    --text-warning: #f59e0b;
+    --text-danger: #f87171;
+    --text-info: #38bdf8;
+
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #38bdf8;
+
+    --date-icon-filter: invert(1) brightness(1.1);
+    --date-icon-opacity: 0.95;
+
+    --glass-bg: rgba(19, 19, 23, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-card-bg: rgba(26, 26, 32, 0.78);
+  }
+}

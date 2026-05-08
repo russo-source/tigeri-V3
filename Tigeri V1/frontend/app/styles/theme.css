@@ -1,0 +1,134 @@
+/* Make dark: utilities follow app theme toggle instead of only system preference. */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  /* Light mode tokens */
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --surface: #f8fafc;
+  --surface-elevated: #ffffff;
+
+  --border: #e2e8f0;
+  --border-5: #0f172a0d;
+  --border-10: #0f172a1a;
+
+  --background-5: #0f172a0d;
+  --background-blue: #3537d7;
+  --background-dashboard: #f1f2f8;
+
+  --text-primary: #0f172a;
+  --text-secondary: #717182;
+  --text-muted: #717182;
+
+  --text-success: #16a34a;
+  --text-warning: #d97706;
+  --text-danger: #dc2626;
+
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+
+  --date-icon-filter: none;
+  --date-icon-opacity: 0.9;
+}
+
+@theme inline {
+  /* Font tokens: enables font-sans and font-aspekta utilities */
+  --font-sans: "Aspekta", sans-serif;
+  --font-aspekta: "Aspekta", sans-serif;
+
+  /* Semantic colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --color-border: var(--border);
+  --color-border-5: var(--border-5);
+  --color-border-10: var(--border-10);
+
+  --color-background-5: var(--background-5);
+  --color-background-blue: var(--background-blue);
+  --color-background-dashboard: var(--background-dashboard);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-text-danger: var(--text-danger);
+  --color-text-success: var(--text-success);
+  --color-text-warning: var(--text-warning);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+}
+
+/* Dark mode tokens: switch by adding .dark or [data-theme="dark"] on html */
+html.dark,
+html[data-theme="dark"] {
+  --background: #19191b;
+  --foreground: #ffffff;
+
+  --surface: #19191b;
+  --surface-elevated: #202024;
+
+  --border-5: #ffffff0d;
+  --border-10: #ffffff1a;
+  --border: var(--border-10);
+
+  --background-5: #ffffff0d;
+  --background-blue: #3537d7;
+  --background-dashboard: #0000004d;
+
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff99;
+  --text-muted: #717182;
+
+  --text-success: #16a34a;
+  --text-warning: #d97706;
+  --text-danger: #dc2626;
+
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+
+  --date-icon-filter: invert(1) brightness(1.1);
+  --date-icon-opacity: 0.95;
+}
+
+/* Fallback to system dark mode when no explicit theme is set */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-theme="light"]) {
+    --background: #19191b;
+    --foreground: #ffffff;
+
+    --surface: #19191b;
+    --surface-elevated: #202024;
+
+    --border-5: #ffffff0d;
+    --border-10: #ffffff1a;
+    --border: var(--border-10);
+
+    --background-5: #ffffff0d;
+    --background-blue: #3537d7;
+    --background-dashboard: #0000004d;
+
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff99;
+    --text-muted: #717182;
+
+    --text-success: #16a34a;
+    --text-warning: #d97706;
+    --text-danger: #dc2626;
+
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+
+    --date-icon-filter: invert(1) brightness(1.1);
+    --date-icon-opacity: 0.95;
+  }
+}

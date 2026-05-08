@@ -1,0 +1,49 @@
+agent_id: financial_reporting_agent
+name: Financial Reporting Agent
+version: 0.1.0
+priority: 6
+phase: "Phase 1 — Core MVP"
+status: "In Development"
+function: "Auto-generates P&L, cashflow, KPI dashboards. Board-ready output."
+capabilities:
+  - id: pull_balances
+    description: Pull general ledger balances per period.
+    input_ref: "#/components/FRInput"
+    output_ref: "#/components/LedgerSlice"
+  - id: compute_pnl
+    description: Compute P&L statement.
+    input_ref: "#/components/LedgerSlice"
+    output_ref: "#/components/PnLStatement"
+  - id: compute_cashflow
+    description: Compute cashflow statement.
+    input_ref: "#/components/LedgerSlice"
+    output_ref: "#/components/CashflowStatement"
+  - id: compute_kpis
+    description: Compute tenant-defined KPIs.
+    input_ref: "#/components/LedgerSlice"
+    output_ref: "#/components/KPIList"
+  - id: render
+    description: Render board-ready dashboard.
+    input_ref: "#/components/Statements"
+    output_ref: "#/components/RenderedReport"
+  - id: deliver
+    description: Schedule and deliver periodic reports.
+    input_ref: "#/components/RenderedReport"
+    output_ref: "#/components/DeliveryReceipt"
+input_schema_ref: "tigeri.agents.financial_reporting.schemas.FRInput"
+output_schema_ref: "tigeri.agents.financial_reporting.schemas.FROutput"
+default_trust_tier: OBSERVER
+required_integrations:
+  - category: "general ledger / accounting system"
+    access_pattern: API
+  - category: "treasury / banking feed"
+    access_pattern: API
+  - category: "document storage"
+    access_pattern: API
+delivery_surfaces:
+  - web
+sla_ms:
+  p50: 1500
+  p95: 4000
+  p99: 8000
+roi_baseline: "$2K–5K per month of CFO time"

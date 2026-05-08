@@ -1,0 +1,52 @@
+agent_id: staffing_agent
+name: Staffing Agent
+version: 0.1.0
+priority: 4
+phase: "Phase 1 — Core MVP"
+status: "In Development"
+function: "Shift rostering, scheduling, cover management across venues and crews."
+capabilities:
+  - id: generate_roster
+    description: Generate shift roster against demand and constraints.
+    input_ref: "#/components/StaffingInput"
+    output_ref: "#/components/Roster"
+  - id: publish_roster
+    description: Publish roster to staff.
+    input_ref: "#/components/Roster"
+    output_ref: "#/components/PublishReceipt"
+  - id: detect_gap
+    description: Detect coverage gaps from absence/leave.
+    input_ref: "#/components/Roster"
+    output_ref: "#/components/GapList"
+  - id: source_cover
+    description: Source cover candidates per skill and availability.
+    input_ref: "#/components/GapList"
+    output_ref: "#/components/CoverCandidates"
+  - id: confirm_cover
+    description: Confirm cover and update roster.
+    input_ref: "#/components/CoverCandidates"
+    output_ref: "#/components/Roster"
+  - id: notify
+    description: Notify affected crew and venue managers.
+    input_ref: "#/components/Roster"
+    output_ref: "#/components/NotificationReceipt"
+input_schema_ref: "tigeri.agents.staffing.schemas.StaffingInput"
+output_schema_ref: "tigeri.agents.staffing.schemas.StaffingOutput"
+default_trust_tier: ACTOR_GATED
+required_integrations:
+  - category: "HRIS"
+    access_pattern: API
+  - category: "workforce management system"
+    access_pattern: API
+  - category: "messaging platform"
+    access_pattern: API
+  - category: "calendar provider"
+    access_pattern: API
+delivery_surfaces:
+  - web
+  - mobile
+sla_ms:
+  p50: 600
+  p95: 2000
+  p99: 4000
+roi_baseline: "$15K–25K per yr (20 hires)"
