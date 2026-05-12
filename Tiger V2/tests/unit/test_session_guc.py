@@ -88,7 +88,7 @@ async def test_bare_session_scope_raises_tenant_context_missing(engine):
 async def test_session_scope_rejects_both_tenant_id_and_bypass_rls(engine):
     """Caller can't claim both tenant and cross-tenant context. Mutex."""
     with pytest.raises(ValueError) as exc:
-        async with session_scope(tenant_id="t_alpha", bypass_rls="auth") as _:
+        async with session_scope(tenant_id="t_alpha", bypass_rls="auth_resolve") as _:
             pytest.fail("session_scope should have raised on mutex violation")
     assert "tenant_id or bypass_rls, not both" in str(exc.value)
 

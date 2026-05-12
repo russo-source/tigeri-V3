@@ -43,7 +43,7 @@ class TenantContextMissing(Exception):
 # `tigeri_langgraph_role` and switches session.execute("SET ROLE ...")
 # inside the matching branches below.
 ALLOWED_BYPASSRLS_REASONS = frozenset({
-    "auth",            # pre-scope identity resolution (auth/scope.py, auth/sessions.py)
+    "auth_resolve",    # pre-scope identity resolution (auth/scope.py, auth/sessions.py)
     "sweeper",         # cleanup_expired cron jobs across tenants
     "inbound_channel", # telegram webhook actor resolution + capability-token consume
     "langgraph",       # PostgresSaver raw conn pool (cross-tenant by thread_id contract)

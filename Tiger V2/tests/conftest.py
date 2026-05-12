@@ -75,7 +75,7 @@ async def tenant_scoped_session(engine, tenant_id: str = "t_test"):
 
 
 @pytest_asyncio.fixture
-async def bypass_rls_session(engine, reason: str = "auth"):
+async def bypass_rls_session(engine, reason: str = "auth_resolve"):
     """Yield an AsyncSession with an acknowledged BYPASSRLS reason.
 
     Used by tests that exercise pre-scope or cross-tenant code paths
