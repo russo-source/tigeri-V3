@@ -58,6 +58,37 @@ async def session(engine) -> AsyncIterator[AsyncSession]:
         yield s
 
 
+@pytest_asyncio.fixture
+async def tenant_scoped_session(engine, tenant_id: str = "t_test"):
+    """Yield an AsyncSession with `app.current_tenant_id = :tid` SET LOCAL.
+
+    PR-1 (entry 17) fixture: every DB-touching test should use this in
+    preference to the bare `session` fixture, so tests fail loudly if
+    the test's code path drops tenant context. On sqlite the SET LOCAL
+    is a no-op (application-layer WHERE still enforces); on Postgres
+    this is the RLS bootstrap.
+    """
+    from tigeri.core.db import session_scope
+
+    async with session_scope(tenant_id=tenant_id) as s:
+        yield s
+
+
+@pytest_asyncio.fixture
+async def bypass_rls_session(engine, reason: str = "auth"):
+    """Yield an AsyncSession with an acknowledged BYPASSRLS reason.
+
+    Used by tests that exercise pre-scope or cross-tenant code paths
+    (auth resolution, sweepers, inbound channel webhook actor lookup,
+    langgraph checkpointer). PR-2 wires the actual SET ROLE call to
+    one of the named Postgres BYPASSRLS roles.
+    """
+    from tigeri.core.db import session_scope
+
+    async with session_scope(bypass_rls=reason) as s:
+        yield s
+
+
 @pytest.fixture(autouse=True)
 def _reset_replay_cache():
     from tigeri.a2a.signing import _replay_cache
